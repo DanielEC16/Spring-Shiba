@@ -1,0 +1,266 @@
+<div th:fragment="panel-user"
+	th:classappend="${activeSection == 'users' ? ' active' : ''}"
+	id="usuarios" class="content">
+	<div class="d-flex justify-content-between">
+		<h3>Lista de Clientes</h3>
+		<div class="boton-agregar">
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+				data-bs-target="#form-cliente">Agregar Cliente</button>
+			<div class="modal fade text-white" id="form-cliente" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true"
+				data-bs-theme="dark">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title fs-5" id="exampleModalLabel">DATOS
+								DEL CLIENTE</h2>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{/admin/usuarios/save}" th:object="${cliente}"
+								class="row m-0 g-3 needs-validation" novalidate method="POST"
+								enctype="multipart/form-data">
+								<div class="col-12 col-sm-6">
+									<label for="validationCustom01" class="form-label">Nombre</label>
+									<input th:field="*{nombre}" type="text" class="form-control"
+										id="validationCustom01" placeholder="Nombre" name="nomCli"
+										required>
+								</div>
+								<div class="col-12 col-sm-6">
+									<label for="validationCustom02" class="form-label">Apellido</label>
+									<input th:field="*{apellido}" type="text" class="form-control"
+										id="validationCustom02" placeholder="Apellido" name="apeCli"
+										required>
+								</div>
+								<div class="col-12 col-sm-6">
+									<label for="validationCustom02" class="form-label">Telefono</label>
+									<input th:field="*{telefono}" type="tel" class="form-control"
+										id="validationCustom03" placeholder="Ej : 123456789"
+										name="telCli" required maxlength="9" pattern="[0-9]{9}">
+								</div>
+								<div class="col-12 col-sm-6">
+									<label for="validationCustom02" class="form-label">DNI</label>
+									<input th:field="*{dni}" type="text" class="form-control"
+										id="validationCustom04" placeholder="Ej : 12345678"
+										name="dniCli" required maxlength="8" pattern="[0-9]{8}">
+								</div>
+								<div class="col-12">
+									<label for="validationCustom02" class="form-label">Direccion</label>
+									<input th:field="*{direccion}" type="text" class="form-control"
+										id="validationCustom05" placeholder="Apellido" name="dirCli"
+										required>
+								</div>
+								<div class="col-12">
+									<label for="validationCustomUsername" class="form-label">Correo</label>
+									<div class="input-group has-validation">
+										<input type="text" class="form-control"
+											id="validationCustomUsername" placeholder="user-example"
+											required name="corr1Cli"> <span
+											class="input-group-text" id="inputGroupPrepend">@</span> <input
+											type="text" class="form-control"
+											id="validationCustomUsername2" placeholder="example.com"
+											required name="corr2Cli">
+									</div>
+								</div>
+								<div class="col-12">
+									<label for="validationCustomUsername" class="form-label">Contraseña</label>
+									<input th:field="*{contraseña}" type="password"
+										class="form-control" id="validationCustom06"
+										placeholder="Ingrese una contraseña" required name="contraCli" />
+								</div>
+								<div class="col-12 mb-3">
+									<label class="form-label">Foto (opcional)</label> <label
+										class="picture p-3" for="picture__input3" tabIndex="0">
+										<span class="picture__image"></span>
+									</label> <input type="file" class="form-control"
+										aria-label="file example" name="picture__input"
+										id="picture__input3">
+
+								</div>
+								<div class="col-12">
+									<button class="btn btn-primary" type="submit">Submit
+										form</button>
+									<button name="accion" type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="tabla-clientes">
+		<div class="table-container">
+			<table class="align-middle content-table">
+				<thead>
+					<tr>
+						<th>N°</th>
+						<th>Foto</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Telefono</th>
+						<th>Correo</th>
+						<th>Fecha de Registro</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cliente : ${clientes}">
+						<th th:text="${cliente.id}"></th>
+						<td>
+							<img th:src="${cliente.foto != null ? '/img/baseDatos/clientes/' 
+							+ cliente.foto : '/img/baseDatos/clientes/default.png'}"
+	     					alt="Foto del cliente" class="foto-admin">
+						</td>
+						<td th:text="${cliente.nombre}"></td>
+						<td th:text="${cliente.apellido}"></td>
+						<td th:text="${cliente.telefono}"></td>
+						<td th:text="${cliente.correo}"></td>
+						<td th:text="${cliente.fechaRegistro}"></td>
+						<td>
+							<button class="btn btn-primary">Editar</button> <a
+							class="btn btn-danger">Eliminar</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="d-flex justify-content-between">
+		<h3>Lista de Administradores</h3>
+		<div class="boton-agregar">
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+				data-bs-target="#exampleModal2">Agregar administrador</button>
+			<div class="modal fade text-white" id="exampleModal2" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true"
+				data-bs-theme="dark">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title fs-5" id="exampleModalLabel">DATOS
+								DEL ADMINISTRADOR</h2>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{/admin/usuarios/saveAdm}" th:object="${administrador}" 
+							class="row g-3 needs-validation" novalidate method="POST" 
+							enctype="multipart/form-data">
+								<div class="col-6">
+									<label for ="validationCustom01" class="form-label">Nombre</label>
+									<input th:field="*{nombre}" type="text" class="form-control" id="validationCustom01"
+										placeholder="Nombre" required name="nomAdmin" />
+								</div>
+								<div class="col-6">
+									<label for="validationCustom02" class="form-label">Apellido</label>
+									<input th:field="*{apellido}" type="text" class="form-control" id="validationCustom02"
+										placeholder="Apellido" required name="apeAdmin" />
+								</div>
+								<div class="col-6">
+									<label for="validationCustom04" class="form-label">Contacto</label>
+									<input th:field="*{telefono}" type="tel" class="form-control" id="validationCustom04"
+										maxlength="9" pattern="[0-9]{9}" placeholder="Ej: 123456789"
+										required name="conAdmin" />
+								</div>
+								<div class="col-6">
+									<label for="validationCustomUsername" class="form-label">DNI</label>
+									<input th:field="*{dni}" type="tel" class="form-control" id="validationCustom04"
+										maxlength="8" pattern="[0-9]{8}" placeholder="Ej: 12345678"
+										required name="dniAdmin" />
+								</div>
+
+								<div class="col-12">
+									<label for="validationCustom03" class="form-label">Correo</label>
+									<div class="input-group">
+										<input type="text" class="form-control"
+											id="validationCustom03" placeholder="user.example" required
+											name="corr1Admin" /> <span class="input-group-text">@</span>
+										<input type="text" class="form-control"
+											id="validationCustom03" placeholder="example.com" required
+											name="corr2Admin" />
+									</div>
+								</div>
+								<div class="col-12">
+									<label for="validationCustomUsername" class="form-label">Contraseña</label>
+									<input th:field="*{contraseña}" type="password" class="form-control"
+										id="validationCustom04" placeholder="Ingrese una contraseña"
+										required name="contraAdmin" />
+								</div>
+
+								<div class="col-12">
+									<label class="form-label">Rol a cumplir</label> <br>
+									<div class="form-check-inline">
+										<th:block th:each="rol: ${roles}">
+											<input th:id="'flexRadioDefault' + ${rol.id}"
+												th:name="'rolAdmin'" th:value="${rol.id}"
+												th:checked="${rol.id == selectedRolId}"
+												class="form-check-input" type="radio" required />
+											<label th:for="'flexRadioDefault' + ${rol.id}"
+												class="form-check-label" th:text="${rol.nombre}"></label>
+										</th:block>
+									</div>
+								</div>
+								<div class="col-12 mb-3">
+									<label class="form-label">Foto (opcional)</label> <label
+										class="picture p-3" for="picture__input1" tabIndex="0">
+										<span class="picture__image"></span>
+									</label> <input type="file" class="form-control"
+										aria-label="file example" name="picture__input"
+										id="picture__input1">
+
+								</div>
+								<div class="col-12">
+									<button class="btn btn-primary" type="submit">Submit
+										form</button>
+									<button name="accion" type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="tabla-administradores">
+		<div class="table-container">
+			<table class="align-middle content-table">
+				<thead>
+					<tr>
+						<th scope="col">N°</th>
+						<th scope="col">Foto</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Apellido</th>
+						<th scope="col">Rol</th>
+						<th scope="col">Status</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="adm : ${administradores}">
+						<th th:text="${adm.id}"></th>
+						<td>
+							<img th:src="${adm.foto != null ? '/img/baseDatos/admins/' 
+							+ adm.foto : '/img/baseDatos/admins/default.png'}"
+	     					alt="Foto" class="foto-admin">
+						</td>
+						<td th:text="${adm.nombre}"></td>
+						<td th:text="${adm.apellido}"></td>
+						<td th:text="${adm.rol.nombre}"></td>
+						<td th:text="${adm.activo}"></td>
+						<td><a class="btn btn-primary" data-bs-toggle="modal">Editar</a>
+							<a class="btn btn-danger">Eliminar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

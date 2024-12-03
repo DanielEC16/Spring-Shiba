@@ -1,0 +1,43 @@
+
+        <div class="ds-left-menu" th:fragment="nav-bar-admin">
+            <button class="btn-menu">
+                <i class="fa-solid fa-circle-chevron-left"></i>
+            </button>
+
+            <div class="ds-perfil">
+                <div class="foto">
+                    <img src="https://raw.githubusercontent.com/juliocesardw/dasboard/main/perfil.jpg" alt="" />
+                </div>
+                <div class="info-perfil">
+                    <span th:text="${role}"></span>
+                    <h3 th:text="${username}"></h3>
+                </div>
+            </div>
+
+            <div class="ds-menu">
+        <ul class="ps-0">
+            <li>
+                <a href="/admin/home" data-target="inicio" class="active"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
+            </li>
+            <li>
+                <a href="/admin/productos" data-target="productos"><i class="fa-solid fa-truck-fast"></i><span>Productos</span></a>
+            </li>
+            <li>
+                <a href="/admin/ventas" data-target="ventas"><i class="fa-solid fa-basket-shopping"></i><span>Ventas</span></a>
+            </li>
+            <li>
+                <a href="/admin/usuarios" data-target="usuarios"><i class="fa-solid fa-user"></i><span>Usuarios</span></a>
+            </li>
+            <li>
+                <a href="/admin/ajustes" data-target="ajustes"><i class="fa-solid fa-sliders"></i><span>Ajustes</span></a>
+            </li>
+        </ul>
+    </div>
+
+            <div class="sign-off">
+                <a href="#" class="btn-sign-off">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </div>

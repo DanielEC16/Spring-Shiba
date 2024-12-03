@@ -1,0 +1,36 @@
+<div th:fragment="panel-ventas"
+	th:classappend="${activeSection == 'ventas' ? ' active' : ''}"
+	id="usuarios" class="content">
+		<div class="tabla-clientes">
+		<div class="table-container">
+			<table class="align-middle content-table">
+				<thead>
+					<tr>
+						<th>N°</th>
+						<th>Cliente</th>
+						<th>Nombre</th>
+						<th>Fecha</th>
+						<th>Total</th>
+						<th>Estado</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="venta : ${ventas}">
+						<th th:text="${venta.id}"></th>
+						<td th:text="${venta.cliente.nombre}"></td>
+						<td th:text="${venta.fechaVenta}"></td>
+						<td th:text="${venta.total}"></td>
+						<td th:text="${venta.estado}"></td>
+						<td>
+							<button class="btn btn-primary">Editar</button> 
+							<a class="btn btn-danger">Eliminar</a>
+							<button class="btn btn-warning">Detalles</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+</div>
