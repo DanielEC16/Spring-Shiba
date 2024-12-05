@@ -1,0 +1,52 @@
+<header th:fragment="nav-bar" class="px-3 navbar sticky-top bg-body-tertiary">
+    <div class="container-fluid d-flex justify-content-between">
+      <a href="inicio.jsp" class="d-flex align-items-center text-decoration-none gap-2">
+        <img th:src="@{/img/logo.png}" alt="logooo" class="logo"/>
+        <span style="color: black;" class="fst-normal fs-5">Shiba Store</span>
+      </a>
+
+      <ul class="nav d-flex align-items-center gap-4 fw-medium">
+        <li>
+          <a href="/shiba" class="nav-link px-2 link-body-emphasis">Inicio</a>
+        </li>
+        <li>
+          <a href="/shiba/productos" class="nav-link px-2 link-body-emphasis">Productos</a>
+        </li>
+        <li>
+          <a href="#" class="nav-link px-2 link-body-emphasis">Ubicacion</a>
+        </li>
+        <li>
+          <a href="#" class="nav-link px-2 link-body-emphasis">Contacto</a>
+        </li>
+      </ul>
+
+      <div class="cart-log d-flex gap-3 align-items-center">
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle fs-5"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle fs-3 rounded-circle"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end " data-bs-theme="dark">
+            <li><a class="dropdown-item" href="#"><i class="bi bi-cart-fill"></i> Ver Carrito</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear-fill"></i> Configuracion</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-in-right"></i> Cerrar Sesion</a></li>
+          </ul>
+        </div>
+        <div class="separators">
+          <hr />
+          <hr />
+        </div>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle fs-5"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-cart-fill fs-3"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" data-bs-theme="dark">
+            <li><a class="dropdown-item" href="#">Iniciar Sesion</a></li>
+            <li><a class="dropdown-item" href="#">Registrarse</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>

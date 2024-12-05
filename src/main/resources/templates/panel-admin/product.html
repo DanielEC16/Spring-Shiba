@@ -1,0 +1,180 @@
+<div th:fragment="panel-product"
+	th:classappend="${activeSection == 'products' ? ' active' : ''}"
+	id="productos" class="content">
+	<div class="d-flex justify-content-between">
+		<h3>Lista de Productos</h3>
+
+		<div class="boton-agregar">
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+				data-bs-target="#exampleModal1">Agregar Producto</button>
+			<!-- Modal -->
+			<div class="modal fade text-white" id="exampleModal1" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true"
+				data-bs-theme="dark">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title fs-5" id="exampleModalLabel">DATOS
+								DEL LIBRO</h2>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{/admin/productos/save}"
+								th:object="${producto}" class="row g-3 needs-validation"
+								method="POST" enctype="multipart/form-data" novalidate>
+								<div class="col-6">
+									<label for="validationCustom01" class="form-label">Titulo
+										del Libro</label> <input th:field="*{titulo}" type="text"
+										class="form-control" id="validationCustom01"
+										placeholder="Titulo del libro" required />
+								</div>
+								<div class="col-6">
+									<label for="validationCustom02" class="form-label">Autor</label>
+									<input th:field="*{autor}" type="text" class="form-control"
+										id="validationCustom02" placeholder="Autor del libro" required />
+								</div>
+								<div class="col-12">
+									<label for="validationTextarea" class="form-label">Reseña
+										del libro</label>
+									<textarea th:field="*{reseña}" class="form-control"
+										id="validationTextarea" rows="2"
+										placeholder="Una reseña del libro" required></textarea>
+								</div>
+								<div class="col-6">
+									<label for="validationCustomUsername" class="form-label">Nº
+										Paginas</label> <input th:field="*{numeroPaginas}" type="number"
+										class="form-control" id="validationCustom04" min="1"
+										placeholder="0" required>
+								</div>
+								<div class="col-6">
+									<label for="validationCustom03" class="form-label">Stock</label>
+									<input th:field="*{stock}" type="number" class="form-control"
+										id="validationCustom05" min="1" placeholder="0" required />
+								</div>
+								<div class="col-6">
+									<label for="validationCustom03" class="form-label">Precio</label>
+									<div class="input-group">
+										<span class="input-group-text" id="inputGroupPrepend3"><i
+											class="bi bi-currency-dollar"></i></span> <input
+											th:field="*{precio}" type="number" class="form-control"
+											id="validationCustom03" step="1" min='0,01'
+											placeholder="0.00" required>
+									</div>
+								</div>
+								<div class="col-6">
+									<label for="validationCustom03" class="form-label">Codigo</label>
+									<div class="input-group">
+										<span class="input-group-text" id="inputGroupPrepend3"><i
+											class="bi bi-upc-scan"></i></span> <input th:field="*{codigo}"
+											type="text" class="form-control" id="validationCustom10"
+											placeholder="43A00012S" maxlength="6" required>
+									</div>
+								</div>
+								<div class="col-12">
+									<label class="form-label">Generos</label> <br>
+
+									<th:block th:each="gen:${generos}">
+										<input type="checkbox" class="btn-check"
+											th:id="'btn-check-' + ${gen.id}" th:name="generos"
+											th:value="${gen.id}">
+										<label class="btn" th:for="'btn-check-'+${gen.id}"
+											th:text="${gen.nombre}"></label>
+									</th:block>
+
+								</div>
+								<div class="col-12 mb-3">
+									<label class="form-label">Imagen del producto</label> <label
+										class="picture p-3" for="picture__input" tabIndex="0">
+										<span class="picture__image"></span>
+									</label> <input type="file" class="form-control"
+										aria-label="file example" name="picture__input"
+										id="picture__input" required>
+								</div>
+								<div class="col-12">
+									<button class="btn btn-primary" type="submit">Submit
+										form</button>
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<hr>
+	<div class="d-flex justify-content-between">
+    <h5>Total de productos: <span th:text="${totalProductos}"></span></h5>
+	</div>
+	<div class="tabla-clientes">
+		<div class="table-container">
+			<table class="align-middle content-table">
+				<thead>
+					<tr>
+						<th>N°</th>
+						<th>Portada</th>
+						<th>Título</th>
+						<th>Precio</th>
+						<th>Stock</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="producto : ${productos}">
+						<th th:text="${producto.id}"></th>
+						<td><img
+							th:src="${producto.fotoPortada != null ? '/img/baseDatos/products/' 
+							+ producto.fotoPortada : '/img/baseDatos/products/default.jpg'}"
+							alt="Foto portada" class="foto-admin"></td>
+						<td th:text="${producto.titulo}"></td>
+						<td th:text="${producto.precio}"></td>
+						<td th:text="${producto.stock}"></td>
+						<td>
+							<!-- Button trigger modal -->
+
+							<button type="button" class="btn btn-warning"
+								th:attr="data-bs-target='#modalProducto-' + ${producto.id}"
+								data-bs-toggle="modal"><i class="bi bi-info-circle"></i></button> <!-- Modal -->
+							<div class="modal fade text-white"
+								th:id="'modalProducto-' + ${producto.id}" tabindex="-1"
+								aria-labelledby="exampleModalLabel" aria-hidden="true"
+								data-bs-theme="dark">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h2 th:text="${producto.titulo}" class="modal-title fs-5"
+												id="exampleModalLabel"></h2>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<!-- Aquí puedes agregar más detalles del producto -->
+											<p>
+												Precio: <span th:text="${producto.precio}"></span>
+											</p>
+											<p>
+												Stock: <span th:text="${producto.stock}"></span>
+											</p>
+											<span th:each="genero : ${producto.generos}"
+												th:text="${genero.nombre}">Género</span>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">Cerrar</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<button class="btn btn-primary"><i class="bi bi-pencil-square"></i></button> 
+							<a class="btn btn-danger"><i class="bi bi-trash3"></i></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

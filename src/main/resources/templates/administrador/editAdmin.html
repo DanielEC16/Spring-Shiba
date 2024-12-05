@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="shortcut icon" th:href="@{/img/logo.png}" type="image/x-icon" />
+  <link rel="stylesheet" th:href="@{/CSS/index.css}" />
+<title>Insert title here</title>
+</head>
+<body>
+	<form th:action="@{/admin/usuarios/saveAdm}"
+		th:object="${administrador}" class="row g-3 needs-validation"
+		novalidate method="POST" enctype="multipart/form-data">
+		<div class="col-6">
+		<input type="hidden" th:field="*{id}">
+			<label for="validationCustom01" class="form-label">Nombre</label> <input
+				th:field="*{nombre}" type="text" class="form-control"
+				id="validationCustom01" placeholder="Nombre" required
+				name="nomAdmin" />
+		</div>
+		<div class="col-6">
+			<label for="validationCustom02" class="form-label">Apellido</label> <input
+				th:field="*{apellido}" type="text" class="form-control"
+				id="validationCustom02" placeholder="Apellido" required
+				name="apeAdmin" />
+		</div>
+		<div class="col-6">
+			<label for="validationCustom04" class="form-label">Contacto</label> <input
+				th:field="*{telefono}" type="tel" class="form-control"
+				id="validationCustom04" maxlength="9" pattern="[0-9]{9}"
+				placeholder="Ej: 123456789" required name="conAdmin" />
+		</div>
+		<div class="col-6">
+			<label for="validationCustomUsername" class="form-label">DNI</label>
+			<input th:field="*{dni}" type="tel" class="form-control"
+				id="validationCustom04" maxlength="8" pattern="[0-9]{8}"
+				placeholder="Ej: 12345678" required name="dniAdmin" />
+		</div>
+
+		<div class="col-12">
+			<label for="validationCustom03" class="form-label">Correo</label> <input
+				th:field="*{correo}" type="text" class="form-control"
+				id="validationCustom03" placeholder="user.example" required
+				name="corr1Admin" />
+		</div>
+		<div class="col-12">
+			<label for="validationCustomUsername" class="form-label">Contraseña</label>
+			<input th:field="*{contraseña}" type="text" class="form-control"
+				id="validationCustom04" placeholder="Ingrese una contraseña"
+				required name="contraAdmin" />
+		</div>
+
+		<div class="col-12">
+			<label class="form-label">Rol a cumplir</label> <br>
+			<div class="form-check-inline">
+				<th:block th:each="rol: ${roles}">
+					<input th:id="'flexRadioDefault' + ${rol.id}" th:name="'rolAdmin'"
+						th:value="${rol.id}" th:checked="${rol.id == selectedRolId}"
+						class="form-check-input" type="radio" required />
+					<label th:for="'flexRadioDefault' + ${rol.id}"
+						class="form-check-label" th:text="${rol.nombre}"></label>
+				</th:block>
+			</div>
+		</div>
+		<div class="col-12 mb-3">
+			<label class="form-label">Foto (opcional)</label> <label
+				class="picture p-3" for="picture__input1" tabIndex="0"> <span
+				class="picture__image"></span>
+			</label> <input type="file" class="form-control" aria-label="file example"
+				name="picture__input" id="picture__input1">
+
+		</div>
+		<div class="col-12">
+			<button class="btn btn-primary" type="submit">Submit form</button>
+			<a href="/admin/usuarios" class="btn btn-secondary">Close</a>
+		</div>
+	</form>
+	<script th:src="@{/JS/mantenimiento.js}"></script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+</html>
